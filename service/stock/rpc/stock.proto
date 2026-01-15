@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package stock;
+option go_package = "./stock";
+
+message DeductReq {
+  int64 book_id = 1;
+  int64 count = 2;
+}
+
+message DeductReply {
+}
+
+service stock {
+  // 扣减库存 (Action)
+  rpc deduct(DeductReq) returns(DeductReply);
+  // 补偿库存 (Compensate) - 如果后续步骤失败，把库存加回来
+  rpc deductRollback(DeductReq) returns(DeductReply);
+}

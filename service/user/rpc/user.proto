@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package user;
+option go_package = "./user";
+
+message IdReq {
+  int64 id = 1;
+}
+
+message UserInfoReply {
+  int64 id = 1;
+  string name = 2;
+  string number = 3;
+  string gender = 4;
+  int64 points = 5; // 新增积分显示
+}
+
+// 新增：积分变动请求
+message AdjustPointsReq {
+  int64 id = 1;
+  int64 points = 2;
+}
+
+message AdjustPointsReply {
+}
+
+service user {
+  rpc getUser(IdReq) returns(UserInfoReply);
+  // Saga Action: 扣积分
+  rpc decrPoints(AdjustPointsReq) returns(AdjustPointsReply);
+  // Saga Compensate: 补偿积分 (把扣掉的加回来)
+  rpc decrPointsRollback(AdjustPointsReq) returns(AdjustPointsReply);
+}

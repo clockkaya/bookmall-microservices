@@ -1,0 +1,32 @@
+type (
+	SearchReq {
+		Name string `form:"name"`
+	//      UserId int64  `form:"user_id"` // 为了测试方便，我们直接把 ID 传进来
+	}
+	SearchReply {
+		Name  string `json:"name"`
+		Count int    `json:"count"`
+		Owner string `json:"owner"` // 新增：显示这本书是谁搜的
+	}
+	BorrowReq {
+		BookId int64 `json:"book_id"`
+		UserId int64 `json:"user_id"`
+	}
+	BorrowReply  {}
+)
+
+// 新增 jwt: Auth 配置
+@server (
+	jwt:        Auth
+	middleware: TimeListener // 🔥 新增这行：声明使用中间件
+)
+service search-api {
+	//http://localhost:8889/search/do?name=gogogo&user_id=1
+	@handler search
+	get /search/do (SearchReq) returns (SearchReply)
+
+	//http://localhost:8889/search/borrow
+	@handler borrow
+	post /search/borrow (BorrowReq) returns (BorrowReply)
+}
+
