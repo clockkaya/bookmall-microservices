@@ -1,0 +1,36 @@
+# Binaries (二进制文件)
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+bin/
+
+# Test binary (测试生成的二进制)
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Dependency directories
+vendor/
+
+# Go workspace file
+go.work
+
+# IDE specific files (IDE配置)
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS specific files (系统文件)
+.DS_Store
+Thumbs.db
+
+# Logs (日志)
+*.log
+
+# Secrets & Configs (敏感配置文件 - 新增)
+*.yml
+*.yaml
